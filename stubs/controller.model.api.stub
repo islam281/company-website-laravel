@@ -1,0 +1,60 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ namespacedModel }};
+use {{ rootNamespace }}Http\Controllers\Controller;
+use {{ namespacedRequests }}
+
+class {{ class }} extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $services={{ model }}::paginate(config('paginate.count'));
+
+        return View('admin.services.index',get_defined_vars());
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store({{ storeRequest }} $request)
+    {
+
+            $data=$request->validated();
+
+            Service::create($data);
+
+            return to_route("admin.services.index")->with("success",__('keywords.created_successfuly'));
+
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show({{ model }} ${{ modelVariable }})
+    {
+         return View('admin.services.show',get_defined_vars());
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update({{ updateRequest }} $request, {{ model }} ${{ modelVariable }})
+    {
+        $data =$request->validated();
+        $service->update($data);
+        return to_route("admin.services.index")->with("success",__('keywords.updated_successfuly'));
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy({{ model }} ${{ modelVariable }})
+    {
+        //
+    }
+}
